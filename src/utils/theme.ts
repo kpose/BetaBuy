@@ -15,9 +15,9 @@ export const CombinedLightTheme = {
   colors: {
     ...NavigationLightTheme.colors,
     ...PaperLightTheme.colors,
-    surface: '#e8e8e8',
-    primary: '#264653',
-    accent: '#2A9D8F',
+    primary: '#e76f51',
+    accent: '#F4A261',
+    disabled: '#F49E60'
   },
 };
 
@@ -30,8 +30,7 @@ export const CombinedDarkTheme = {
   colors: {
     ...PaperDarkTheme.colors,
     ...NavigationDarkTheme.colors,
-    surface: '#000',
-    primary: '#264653',
-    accent: '#2A9D8F',
+    primary: '#e76f51',
+    disabled: '#F49E60',
   },
 };
