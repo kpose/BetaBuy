@@ -1,11 +1,60 @@
-import {colors, hp, wp} from 'app/utils';
+import {colors, fonts, hp, regularIconSize, wp} from 'app/utils';
 import React from 'react';
-import {View, Text, StyleSheet, TextInput} from 'react-native';
+import {View, StyleSheet} from 'react-native';
+import {TextInput} from 'react-native-paper';
 
-const LargeInput = () => {
+interface Props {
+  value: string;
+  onChangeText: Function;
+  hasIcon?: boolean;
+  icon?: string;
+  disabled?: boolean;
+  placeholder: string;
+  error?: boolean;
+  secureTextEntry?: boolean;
+  iconColor?: string;
+  keyboardType?:
+    | 'default'
+    | 'number-pad'
+    | 'numeric'
+    | 'email-address'
+    | 'phone-pad';
+}
+
+const LargeInput = ({
+  value,
+  onChangeText,
+  icon,
+  disabled,
+  placeholder,
+  error,
+  hasIcon,
+  secureTextEntry,
+  keyboardType,
+  iconColor,
+}: Props) => {
   return (
     <View>
-      <TextInput style={styles.inputStyle} />
+      <TextInput
+        mode="outlined"
+        value={value}
+        onChangeText={onChangeText}
+        placeholder={placeholder}
+        disabled={disabled}
+        error={error}
+        secureTextEntry={secureTextEntry}
+        keyboardType={keyboardType}
+        style={[styles.inputStyle, fonts.textInput]}
+        right={
+          hasIcon ? (
+            <TextInput.Icon
+              name={icon}
+              color={iconColor}
+              size={regularIconSize}
+            />
+          ) : null
+        }
+      />
     </View>
   );
 };
@@ -18,10 +67,5 @@ const styles = StyleSheet.create({
   },
   inputStyle: {
     width: wp(90),
-    height: hp(7),
-    borderColor: colors.PRIMARY,
-    borderWidth: wp(0.4),
-    borderRadius: 15,
-    padding: wp(3),
   },
 });

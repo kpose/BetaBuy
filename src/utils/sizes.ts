@@ -14,7 +14,7 @@ export const fonts = StyleSheet.create({
   },
   itemTitle: {
     fontSize: scale(17),
-    fontWeight: '600',
+    fontWeight: '400',
     letterSpacing: 0.41,
   },
   subheading: {
@@ -23,16 +23,16 @@ export const fonts = StyleSheet.create({
     letterSpacing: -0.24,
   },
   textInput: {
-    fontSize: scale(17),
+    fontSize: scale(15),
     fontWeight: 'normal',
   },
   bigButtonText: {
     fontSize: scale(17),
     fontWeight: '700',
   },
-  smallButtonText: {
-    fontSize: scale(13),
-    fontWeight: '400',
+  buttonText: {
+    fontSize: scale(14),
+    fontWeight: '600',
   },
   caption: {
     fontSize: scale(12),
