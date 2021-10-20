@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, SafeAreaView, TouchableOpacity} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  SafeAreaView,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import {Text, Surface} from 'react-native-paper';
 import {LargeInput, LargeButton} from 'app/components';
 import VectorIcon from 'react-native-vector-icons/FontAwesome';
@@ -10,7 +17,7 @@ const Signin = () => {
   const renderLabel = (label: string) => {
     return (
       <View style={styles.labelContainer}>
-        <Text style={[styles.label, fonts.itemTitle]}>{label}</Text>
+        <Text style={[fonts.body]}>{label}</Text>
       </View>
     );
   };
@@ -36,20 +43,12 @@ const Signin = () => {
         <View style={styles.socialRow}>
           <TouchableOpacity>
             <Surface style={styles.surface}>
-              <VectorIcon
-                name="google"
-                size={navigationIconSize}
-                color={colors.LIGHT_GRAY}
-              />
+              <VectorIcon name="google" size={25} color={colors.LIGHT_GRAY} />
             </Surface>
           </TouchableOpacity>
           <TouchableOpacity>
             <Surface style={styles.surface}>
-              <VectorIcon
-                name="facebook"
-                size={navigationIconSize}
-                color={colors.LIGHT_GRAY}
-              />
+              <VectorIcon name="facebook" size={25} color={colors.LIGHT_GRAY} />
             </Surface>
           </TouchableOpacity>
         </View>
@@ -127,10 +126,10 @@ const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: hp(3),
+    marginTop: hp(1),
   },
   socialContainer: {
-    marginTop: hp(8),
+    marginTop: hp(6),
   },
   socialCaption: {
     color: colors.LIGHT_GRAY,
@@ -149,9 +148,8 @@ const styles = StyleSheet.create({
   },
   labelContainer: {
     marginTop: hp(2),
-    marginBottom: hp(1),
   },
-  label: {},
+
   buttonContainer: {
     marginTop: hp(5),
   },
