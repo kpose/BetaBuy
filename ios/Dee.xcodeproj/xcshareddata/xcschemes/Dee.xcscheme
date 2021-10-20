@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "Betabuy.app"
-               BlueprintName = "Betabuy"
-               ReferencedContainer = "container:Betabuy.xcodeproj">
+               BuildableName = "Dee.app"
+               BlueprintName = "Dee"
+               ReferencedContainer = "container:Dee.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "BetabuyTests.xctest"
-               BlueprintName = "BetabuyTests"
-               ReferencedContainer = "container:Betabuy.xcodeproj">
+               BuildableName = "DeeTests.xctest"
+               BlueprintName = "DeeTests"
+               ReferencedContainer = "container:Dee.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "Betabuy.app"
-            BlueprintName = "Betabuy"
-            ReferencedContainer = "container:Betabuy.xcodeproj">
+            BuildableName = "Dee.app"
+            BlueprintName = "Dee"
+            ReferencedContainer = "container:Dee.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "Betabuy.app"
-            BlueprintName = "Betabuy"
-            ReferencedContainer = "container:Betabuy.xcodeproj">
+            BuildableName = "Dee.app"
+            BlueprintName = "Dee"
+            ReferencedContainer = "container:Dee.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
