@@ -1,107 +1,95 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, SafeAreaView, TouchableOpacity} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  SafeAreaView,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import {Text, Surface} from 'react-native-paper';
 import {LargeInput, LargeButton} from 'app/components';
 import VectorIcon from 'react-native-vector-icons/FontAwesome';
 import {colors, fonts, hp, navigationIconSize, wp} from 'app/utils';
+import {AuthStackProps} from 'app/types/AuthStackTypes';
+import {isValidEmail, isValidPassword} from 'app/utils/validators';
 
-const Signin = () => {
+const Signin = ({navigation}: AuthStackProps) => {
   const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const renderLabel = (label: string) => {
     return (
       <View style={styles.labelContainer}>
-        <Text style={[styles.label, fonts.itemTitle]}>{label}</Text>
+        <Text style={[fonts.body]}>{label}</Text>
       </View>
     );
   };
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.titleContainer}>
-        <TouchableOpacity
-          style={styles.navIconContainer}
-          onPress={() => console.log('back button pressed')}>
-          <VectorIcon
-            name="angle-left"
-            size={navigationIconSize}
-            color={colors.LIGHT_GRAY}
-          />
-        </TouchableOpacity>
-        <Text style={[styles.title, fonts.headerTitle]}>Sign up</Text>
-      </View>
-
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.socialContainer}>
         <Text style={[fonts.caption, styles.socialCaption]}>
-          Sign up with one of the following options.
+          Log in with one of the following options.
         </Text>
         <View style={styles.socialRow}>
           <TouchableOpacity>
-            <Surface style={styles.surface}>
-              <VectorIcon
-                name="google"
-                size={navigationIconSize}
-                color={colors.LIGHT_GRAY}
-              />
+            <Surface style={[{backgroundColor: '#db3236'}, styles.surface]}>
+              <VectorIcon name="google" size={25} color={colors.WHITE} />
             </Surface>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Surface style={styles.surface}>
-              <VectorIcon
-                name="facebook"
-                size={navigationIconSize}
-                color={colors.LIGHT_GRAY}
-              />
+            <Surface style={[styles.surface, {backgroundColor: '#3b5998'}]}>
+              <VectorIcon name="facebook" size={25} color={colors.WHITE} />
             </Surface>
           </TouchableOpacity>
         </View>
       </View>
 
       <View>
-        {renderLabel('Name')}
-        <LargeInput
-          value={email}
-          onChangeText={(x: string) => setEmail(x)}
-          placeholder="John Doe"
-          hasIcon={true}
-          icon={email ? 'emoticon-cool' : 'emoticon-confused'}
-          iconColor={colors.SECONDARY}
-        />
-
         {renderLabel('Email')}
         <LargeInput
           value={email}
           onChangeText={(x: string) => setEmail(x)}
           placeholder="John Doe"
+          error={email.length > 3 && !isValidEmail(email)}
           hasIcon={true}
           icon={email ? 'emoticon-cool' : 'emoticon-confused'}
           iconColor={colors.SECONDARY}
         />
+        {email.length > 3 && !isValidEmail(email) && (
+          <Text style={[fonts.caption, {color: colors.WARNING}]}>
+            Invalid email, please verify.
+          </Text>
+        )}
 
         {renderLabel('Password')}
         <LargeInput
           value={email}
           onChangeText={(x: string) => setEmail(x)}
           placeholder="John Doe"
+          error={password.length > 3 && !isValidPassword(password)}
           hasIcon={true}
           icon={email ? 'eye-off' : 'eye'}
           iconColor={colors.SECONDARY}
         />
+        {password.length > 3 && !isValidPassword(password) && (
+          <Text style={[fonts.caption, {color: colors.WARNING}]}>
+            Password must contain an uppercase and lowercase letter, a number
+            and special character.
+          </Text>
+        )}
       </View>
       <View style={styles.buttonContainer}>
-        <LargeButton
-          title="Create Account"
-          onPress={() => console.log('button pressed')}
-        />
+        <LargeButton title="Log in" onPress={() => console.log('predded')} />
       </View>
       <View style={styles.option}>
-        <Text style={[fonts.caption]}>Already have a account?</Text>
-        <TouchableOpacity>
+        <Text style={[fonts.caption]}>Don't have an account?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
           <Text
             style={[fonts.caption, {fontWeight: 'bold', marginLeft: wp(2)}]}>
-            Log in
+            Sign up
           </Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </ScrollView>
   );
 };
 
@@ -112,25 +100,9 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: wp(4),
   },
-  navIconContainer: {
-    height: wp(10),
-    width: wp(10),
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: wp(0.3),
-    borderColor: colors.DARK_GRAY,
-    borderRadius: wp(2),
-  },
-  title: {
-    marginLeft: wp(4),
-  },
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: hp(3),
-  },
+
   socialContainer: {
-    marginTop: hp(8),
+    marginTop: hp(6),
   },
   socialCaption: {
     color: colors.LIGHT_GRAY,
@@ -149,9 +121,8 @@ const styles = StyleSheet.create({
   },
   labelContainer: {
     marginTop: hp(2),
-    marginBottom: hp(1),
   },
-  label: {},
+
   buttonContainer: {
     marginTop: hp(5),
   },

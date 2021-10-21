@@ -60,4 +60,8 @@ buck-out/
 /ios/Pods/
 
 #app entry
-/src/App.tsx/
+/src/App.tsx
+
+/ios/GoogleService-Info.plist
+
+/android/app/google-services.json

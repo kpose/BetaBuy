@@ -1,4 +1,4 @@
-package com.betabuy;
+package com.dee;
 
 import com.facebook.react.ReactActivity;
 import android.os.Bundle;

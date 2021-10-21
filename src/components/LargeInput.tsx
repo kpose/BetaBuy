@@ -5,7 +5,7 @@ import {TextInput} from 'react-native-paper';
 
 interface Props {
   value: string;
-  onChangeText: Function;
+  onChangeText: (x: string) => void;
   hasIcon?: boolean;
   icon?: string;
   disabled?: boolean;
@@ -67,5 +67,6 @@ const styles = StyleSheet.create({
   },
   inputStyle: {
     width: wp(90),
+    marginBottom: hp(0.5),
   },
 });

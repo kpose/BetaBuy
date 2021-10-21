@@ -1,6 +1,7 @@
-import Signin from "./signin/Signin";
+import Signin from "./Signin";
+import Signup from "./Signup";
 
 
 
 
-export {Signin}
+export {Signin, Signup}
