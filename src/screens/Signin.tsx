@@ -11,9 +11,11 @@ import {LargeInput, LargeButton} from 'app/components';
 import VectorIcon from 'react-native-vector-icons/FontAwesome';
 import {colors, fonts, hp, navigationIconSize, wp} from 'app/utils';
 import {AuthStackProps} from 'app/types/AuthStackTypes';
+import {isValidEmail, isValidPassword} from 'app/utils/validators';
 
 const Signin = ({navigation}: AuthStackProps) => {
   const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const renderLabel = (label: string) => {
     return (
       <View style={styles.labelContainer}>
@@ -22,7 +24,7 @@ const Signin = ({navigation}: AuthStackProps) => {
     );
   };
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.socialContainer}>
         <Text style={[fonts.caption, styles.socialCaption]}>
           Log in with one of the following options.
@@ -47,20 +49,33 @@ const Signin = ({navigation}: AuthStackProps) => {
           value={email}
           onChangeText={(x: string) => setEmail(x)}
           placeholder="John Doe"
+          error={email.length > 3 && !isValidEmail(email)}
           hasIcon={true}
           icon={email ? 'emoticon-cool' : 'emoticon-confused'}
           iconColor={colors.SECONDARY}
         />
+        {email.length > 3 && !isValidEmail(email) && (
+          <Text style={[fonts.caption, {color: colors.WARNING}]}>
+            Invalid email, please verify.
+          </Text>
+        )}
 
         {renderLabel('Password')}
         <LargeInput
           value={email}
           onChangeText={(x: string) => setEmail(x)}
           placeholder="John Doe"
+          error={password.length > 3 && !isValidPassword(password)}
           hasIcon={true}
           icon={email ? 'eye-off' : 'eye'}
           iconColor={colors.SECONDARY}
         />
+        {password.length > 3 && !isValidPassword(password) && (
+          <Text style={[fonts.caption, {color: colors.WARNING}]}>
+            Password must contain an uppercase and lowercase letter, a number
+            and special character.
+          </Text>
+        )}
       </View>
       <View style={styles.buttonContainer}>
         <LargeButton title="Log in" onPress={() => console.log('predded')} />
