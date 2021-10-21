@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:446913551274:android:9648666cd9fb75f09ca9d3",
+        "mobilesdk_app_id": "1:446913551274:android:f28ab80549cf28e59ca9d3",
         "android_client_info": {
-          "package_name": "com.betabuy"
+          "package_name": "com.dee"
         }
       },
       "oauth_client": [
@@ -29,6 +29,13 @@
             {
               "client_id": "446913551274-6rjgb71e0518top4i2586arp8k4jfu7i.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "446913551274-fbafnsvec290ld5l1u5ndr41dtaqh2ek.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.Dee"
+              }
             }
           ]
         }
