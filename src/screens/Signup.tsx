@@ -81,7 +81,7 @@ const Signup = ({navigation}: AuthStackProps) => {
             value={password}
             onChangeText={(x: string) => setPassword(x)}
             placeholder="John Doe"
-            error={!isValidPassword(password)}
+            error={password.length > 3 && !isValidPassword(password)}
             hasIcon={true}
             icon={email ? 'eye-off' : 'eye'}
             iconColor={colors.SECONDARY}

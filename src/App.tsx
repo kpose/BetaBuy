@@ -6,8 +6,8 @@ import {CombinedDarkTheme, CombinedLightTheme} from './utils';
 
 const App = () => {
   return (
-    <PaperProvider theme={CombinedLightTheme}>
-      <NavigationContainer theme={CombinedLightTheme}>
+    <PaperProvider theme={CombinedDarkTheme}>
+      <NavigationContainer theme={CombinedDarkTheme}>
         <AuthStack />
       </NavigationContainer>
     </PaperProvider>
