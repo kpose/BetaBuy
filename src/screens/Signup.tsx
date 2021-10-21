@@ -9,16 +9,22 @@ import {
   Platform,
 } from 'react-native';
 import {Text, Surface} from 'react-native-paper';
-import {LargeInput, LargeButton} from 'app/components';
+import {LargeInput, LargeButton, Spinner} from 'app/components';
 import VectorIcon from 'react-native-vector-icons/FontAwesome';
 import {colors, fonts, hp, navigationIconSize, wp} from 'app/utils';
 import {AuthStackProps} from 'app/types/AuthStackTypes';
 import {isValidEmail, isValidPassword} from 'app/utils/validators';
+import {SignupUser} from 'app/providers/SignupUser';
+import auth from '@react-native-firebase/auth';
 
 const Signup = ({navigation}: AuthStackProps) => {
   const [email, setEmail] = useState<string>('');
   const [name, setName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [isSignupError, setIsSignupError] = useState<string | null>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  /* this is used to render a label for the form input */
   const renderLabel = (label: string) => {
     return (
       <View style={styles.labelContainer}>
@@ -26,10 +32,34 @@ const Signup = ({navigation}: AuthStackProps) => {
       </View>
     );
   };
+
+  /* To register user and navigate to homepage */
+  const register = async () => {
+    setIsLoading(true);
+    await auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
+          setIsLoading(false);
+          setIsSignupError(
+            'This email address is already in use by another account.',
+          );
+        }
+        setIsLoading(false);
+      });
+    setIsLoading(false);
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={{flex: 1}}>
+      {/* show spinner if 'create button' is clicked */}
+      {isLoading && <Spinner />}
+
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={styles.socialContainer}>
           <Text style={[fonts.caption, styles.socialCaption]}>
@@ -76,6 +106,12 @@ const Signup = ({navigation}: AuthStackProps) => {
             </Text>
           )}
 
+          {isSignupError && (
+            <Text style={[fonts.caption, {color: colors.WARNING}]}>
+              {isSignupError}
+            </Text>
+          )}
+
           {renderLabel('Password')}
           <LargeInput
             value={password}
@@ -94,10 +130,7 @@ const Signup = ({navigation}: AuthStackProps) => {
           )}
         </View>
         <View style={styles.buttonContainer}>
-          <LargeButton
-            title="Create Account"
-            onPress={() => console.log('button pressed')}
-          />
+          <LargeButton title="Create Account" onPress={register} />
         </View>
         <View style={styles.option}>
           <Text style={[fonts.caption]}>Already have a account?</Text>

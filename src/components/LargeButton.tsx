@@ -13,7 +13,7 @@ const LargeButton = ({title, onPress}: Props) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <LinearGradient
-        colors={[colors.PRIMARY, colors.SECONDARY]}
+        colors={[colors.PRIMARY, colors.PRIMARY]}
         style={styles.button}>
         <Text style={[fonts.buttonText]}>{title}</Text>
       </LinearGradient>

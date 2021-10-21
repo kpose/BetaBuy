@@ -6,5 +6,5 @@ export const SEMI_TRANSPARENT = 'rgba(0,0,0,0.5)';
 
 export const LIGHT_GRAY = '#8c94a1';
 
-export const PRIMARY = '#E76F51';
-export const SECONDARY = '#2A9D8F';
+export const PRIMARY = '#0081A7';
+export const SECONDARY = '#FED9B7';
