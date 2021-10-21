@@ -1,60 +1,133 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
-  KeyboardAvoidingView,
   StyleSheet,
-  Platform,
-  TouchableWithoutFeedback,
-  Button,
-  Keyboard,
+  SafeAreaView,
+  TouchableOpacity,
+  ScrollView,
 } from 'react-native';
-import {TextInput, Text} from 'react-native-paper';
+import {Text, Surface} from 'react-native-paper';
+import {LargeInput, LargeButton} from 'app/components';
+import VectorIcon from 'react-native-vector-icons/FontAwesome';
+import {colors, fonts, hp, navigationIconSize, wp} from 'app/utils';
+import {AuthStackProps} from 'app/types/AuthStackTypes';
 
-const Signup = () => {
+const Signup = ({navigation}: AuthStackProps) => {
+  const [email, setEmail] = useState<string>('');
+  const renderLabel = (label: string) => {
+    return (
+      <View style={styles.labelContainer}>
+        <Text style={[fonts.body]}>{label}</Text>
+      </View>
+    );
+  };
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.container}>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.inner}>
-          <Text style={styles.header}>Header</Text>
-          <TextInput placeholder="Username" style={styles.textInput} />
-          <TextInput placeholder="Username" style={styles.textInput} />
-          <TextInput placeholder="Username" style={styles.textInput} />
-          <TextInput placeholder="Username" style={styles.textInput} />
-
-          <View style={styles.btnContainer}>
-            <Button title="Submit" onPress={() => null} />
-          </View>
+    <ScrollView style={styles.container}>
+      <View style={styles.socialContainer}>
+        <Text style={[fonts.caption, styles.socialCaption]}>
+          Sign up with one of the following options.
+        </Text>
+        <View style={styles.socialRow}>
+          <TouchableOpacity>
+            <Surface style={[{backgroundColor: '#db3236'}, styles.surface]}>
+              <VectorIcon name="google" size={25} color={colors.WHITE} />
+            </Surface>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Surface style={[styles.surface, {backgroundColor: '#3b5998'}]}>
+              <VectorIcon name="facebook" size={25} color={colors.WHITE} />
+            </Surface>
+          </TouchableOpacity>
         </View>
-      </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+      </View>
+
+      <View>
+        {renderLabel('Name')}
+        <LargeInput
+          value={email}
+          onChangeText={(x: string) => setEmail(x)}
+          placeholder="John Doe"
+          hasIcon={true}
+          icon={email ? 'emoticon-cool' : 'emoticon-confused'}
+          iconColor={colors.SECONDARY}
+        />
+
+        {renderLabel('Email')}
+        <LargeInput
+          value={email}
+          onChangeText={(x: string) => setEmail(x)}
+          placeholder="John Doe"
+          hasIcon={true}
+          icon={email ? 'emoticon-cool' : 'emoticon-confused'}
+          iconColor={colors.SECONDARY}
+        />
+
+        {renderLabel('Password')}
+        <LargeInput
+          value={email}
+          onChangeText={(x: string) => setEmail(x)}
+          placeholder="John Doe"
+          hasIcon={true}
+          icon={email ? 'eye-off' : 'eye'}
+          iconColor={colors.SECONDARY}
+        />
+      </View>
+      <View style={styles.buttonContainer}>
+        <LargeButton
+          title="Create Account"
+          onPress={() => console.log('button pressed')}
+        />
+      </View>
+      <View style={styles.option}>
+        <Text style={[fonts.caption]}>Already have a account?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+          <Text
+            style={[fonts.caption, {fontWeight: 'bold', marginLeft: wp(2)}]}>
+            Log in
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
 };
+
+export default Signup;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginHorizontal: wp(4),
   },
-  inner: {
-    padding: 24,
-    flex: 1,
-    justifyContent: 'space-around',
+
+  socialContainer: {
+    marginTop: hp(6),
   },
-  header: {
-    fontSize: 36,
-    marginBottom: 48,
+  socialCaption: {
+    color: colors.LIGHT_GRAY,
   },
-  textInput: {
-    height: 40,
-    borderColor: '#000000',
-    borderBottomWidth: 1,
-    marginBottom: 36,
+  surface: {
+    height: hp(6),
+    width: wp(40),
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: wp(3),
   },
-  btnContainer: {
-    backgroundColor: 'white',
-    marginTop: 12,
+  socialRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: hp(3),
+  },
+  labelContainer: {
+    marginTop: hp(2),
+  },
+
+  buttonContainer: {
+    marginTop: hp(5),
+  },
+  option: {
+    marginTop: hp(2),
+    flexDirection: 'row',
+    alignSelf: 'center',
+    alignItems: 'center',
   },
 });
-
-export default Signup;
