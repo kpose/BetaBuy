@@ -35,7 +35,7 @@ const Signin = ({navigation}: AuthStackProps) => {
         <ScrollView
           style={styles.container}
           showsVerticalScrollIndicator={false}>
-          <View style={styles.socialContainer}>
+          {/* <View style={styles.socialContainer}>
             <Text style={[fonts.caption, styles.socialCaption]}>
               Log in with one of the following options.
             </Text>
@@ -51,7 +51,7 @@ const Signin = ({navigation}: AuthStackProps) => {
                 </Surface>
               </TouchableOpacity>
             </View>
-          </View>
+          </View> */}
 
           <View>
             {renderLabel('Email')}

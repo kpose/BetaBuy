@@ -18,6 +18,7 @@ import {AuthStackProps} from 'app/types/AuthStackTypes';
 import {isValidEmail, isValidPassword} from 'app/utils/validators';
 import {SignupUser} from 'app/providers/SignupUser';
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 const Signup = ({navigation}: AuthStackProps) => {
   const [email, setEmail] = useState<string>('');
@@ -41,7 +42,8 @@ const Signup = ({navigation}: AuthStackProps) => {
     await auth()
       .createUserWithEmailAndPassword(email, password)
       .then(res => {
-        console.log(res);
+        firestore().collection('users').add({email: email, username: name});
+        navigation.navigate('HomePage');
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
@@ -66,7 +68,7 @@ const Signup = ({navigation}: AuthStackProps) => {
         <ScrollView
           style={styles.container}
           showsVerticalScrollIndicator={false}>
-          <View style={styles.socialContainer}>
+          {/* <View style={styles.socialContainer}>
             <Text style={[fonts.caption, styles.socialCaption]}>
               Sign up with one of the following options.
             </Text>
@@ -82,7 +84,7 @@ const Signup = ({navigation}: AuthStackProps) => {
                 </Surface>
               </TouchableOpacity>
             </View>
-          </View>
+          </View> */}
 
           <View>
             {renderLabel('Name')}
