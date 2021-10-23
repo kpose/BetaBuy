@@ -4,9 +4,11 @@ import {
   StyleSheet,
   SafeAreaView,
   TouchableOpacity,
-  ScrollView,
   KeyboardAvoidingView,
   Platform,
+  TouchableWithoutFeedback,
+  ScrollView,
+  Keyboard,
 } from 'react-native';
 import {Text, Surface} from 'react-native-paper';
 import {LargeInput, LargeButton, Spinner} from 'app/components';
@@ -60,88 +62,95 @@ const Signup = ({navigation}: AuthStackProps) => {
       {/* show spinner if 'create button' is clicked */}
       {isLoading && <Spinner />}
 
-      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-        <View style={styles.socialContainer}>
-          <Text style={[fonts.caption, styles.socialCaption]}>
-            Sign up with one of the following options.
-          </Text>
-          <View style={styles.socialRow}>
-            <TouchableOpacity>
-              <Surface style={[{backgroundColor: '#db3236'}, styles.surface]}>
-                <VectorIcon name="google" size={25} color={colors.WHITE} />
-              </Surface>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Surface style={[styles.surface, {backgroundColor: '#3b5998'}]}>
-                <VectorIcon name="facebook" size={25} color={colors.WHITE} />
-              </Surface>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <ScrollView
+          style={styles.container}
+          showsVerticalScrollIndicator={false}>
+          <View style={styles.socialContainer}>
+            <Text style={[fonts.caption, styles.socialCaption]}>
+              Sign up with one of the following options.
+            </Text>
+            <View style={styles.socialRow}>
+              <TouchableOpacity>
+                <Surface style={[{backgroundColor: '#db3236'}, styles.surface]}>
+                  <VectorIcon name="google" size={25} color={colors.WHITE} />
+                </Surface>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Surface style={[styles.surface, {backgroundColor: '#3b5998'}]}>
+                  <VectorIcon name="facebook" size={25} color={colors.WHITE} />
+                </Surface>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View>
+            {renderLabel('Name')}
+            <LargeInput
+              value={name}
+              onChangeText={(x: string) => setName(x)}
+              placeholder="John Doe"
+              hasIcon={true}
+              icon={email ? 'emoticon-cool' : 'emoticon-confused'}
+              iconColor={colors.SECONDARY}
+            />
+
+            {renderLabel('Email')}
+            <LargeInput
+              value={email}
+              onChangeText={(x: string) => setEmail(x)}
+              placeholder="John Doe"
+              error={email.length > 3 && !isValidEmail(email)}
+              hasIcon={true}
+              icon={email ? 'emoticon-cool' : 'emoticon-confused'}
+              iconColor={colors.SECONDARY}
+            />
+            {email.length > 3 && !isValidEmail(email) && (
+              <Text style={[fonts.caption, {color: colors.WARNING}]}>
+                Invalid email, please verify.
+              </Text>
+            )}
+
+            {isSignupError && (
+              <Text style={[fonts.caption, {color: colors.WARNING}]}>
+                {isSignupError}
+              </Text>
+            )}
+
+            {renderLabel('Password')}
+            <LargeInput
+              value={password}
+              onChangeText={(x: string) => setPassword(x)}
+              placeholder="John Doe"
+              error={password.length > 3 && !isValidPassword(password)}
+              hasIcon={true}
+              icon={email ? 'eye-off' : 'eye'}
+              iconColor={colors.SECONDARY}
+            />
+            {password.length > 3 && !isValidPassword(password) && (
+              <Text style={[fonts.caption, {color: colors.WARNING}]}>
+                Password must contain an uppercase and lowercase letter, a
+                number and special character.
+              </Text>
+            )}
+          </View>
+          <View style={styles.buttonContainer}>
+            <LargeButton title="Create Account" onPress={register} />
+          </View>
+          <View style={styles.option}>
+            <Text style={[fonts.caption]}>Already have a account?</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Signin')}>
+              <Text
+                style={[
+                  fonts.caption,
+                  {fontWeight: 'bold', marginLeft: wp(2)},
+                ]}>
+                Log in
+              </Text>
             </TouchableOpacity>
           </View>
-        </View>
-
-        <View>
-          {renderLabel('Name')}
-          <LargeInput
-            value={name}
-            onChangeText={(x: string) => setName(x)}
-            placeholder="John Doe"
-            hasIcon={true}
-            icon={email ? 'emoticon-cool' : 'emoticon-confused'}
-            iconColor={colors.SECONDARY}
-          />
-
-          {renderLabel('Email')}
-          <LargeInput
-            value={email}
-            onChangeText={(x: string) => setEmail(x)}
-            placeholder="John Doe"
-            error={email.length > 3 && !isValidEmail(email)}
-            hasIcon={true}
-            icon={email ? 'emoticon-cool' : 'emoticon-confused'}
-            iconColor={colors.SECONDARY}
-          />
-          {email.length > 3 && !isValidEmail(email) && (
-            <Text style={[fonts.caption, {color: colors.WARNING}]}>
-              Invalid email, please verify.
-            </Text>
-          )}
-
-          {isSignupError && (
-            <Text style={[fonts.caption, {color: colors.WARNING}]}>
-              {isSignupError}
-            </Text>
-          )}
-
-          {renderLabel('Password')}
-          <LargeInput
-            value={password}
-            onChangeText={(x: string) => setPassword(x)}
-            placeholder="John Doe"
-            error={password.length > 3 && !isValidPassword(password)}
-            hasIcon={true}
-            icon={email ? 'eye-off' : 'eye'}
-            iconColor={colors.SECONDARY}
-          />
-          {password.length > 3 && !isValidPassword(password) && (
-            <Text style={[fonts.caption, {color: colors.WARNING}]}>
-              Password must contain an uppercase and lowercase letter, a number
-              and special character.
-            </Text>
-          )}
-        </View>
-        <View style={styles.buttonContainer}>
-          <LargeButton title="Create Account" onPress={register} />
-        </View>
-        <View style={styles.option}>
-          <Text style={[fonts.caption]}>Already have a account?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Signin')}>
-            <Text
-              style={[fonts.caption, {fontWeight: 'bold', marginLeft: wp(2)}]}>
-              Log in
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
 };
