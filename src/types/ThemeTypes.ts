@@ -1,26 +1,61 @@
 import {
+  DefaultTheme as NavigationDefaultTheme,
   DarkTheme as NavigationDarkTheme,
-  DefaultTheme as NavigationLightTheme,
 } from '@react-navigation/native';
 import {
   DarkTheme as PaperDarkTheme,
-  DefaultTheme as PaperLightTheme,
+  DefaultTheme as PaperDefaultTheme,
 } from 'react-native-paper';
 
-const Theme = {
-  type: 'light',
-  ...NavigationLightTheme,
-  ...PaperLightTheme,
-  roundness: 2,
-  colors: {
-    ...NavigationLightTheme.colors,
-    ...PaperLightTheme.colors,
-    primary: '#0081A7',
-   // accent: '#F4A261',
-    disabled: '#FFF3B0'
-  },
-}; 
 
 
+interface ThemeFont {
+      fontFamily: string;
+      fontWeight?:
+        | 'normal'
+        | 'bold'
+        | '100'
+        | '200'
+        | '300'
+        | '400'
+        | '500'
+        | '600'
+        | '700'
+        | '800'
+        | '900';
+    }
 
-export type ThemeTypes = typeof Theme   
+type Mode = 'adaptive' | 'exact';
+
+interface ThemeFonts {
+      regular: ThemeFont;
+      medium: ThemeFont;
+      light: ThemeFont;
+      thin: ThemeFont;
+    }
+    interface ThemeColors {
+      primary: string;
+      background: string;
+      surface: string;
+      accent: string;
+      error: string;
+      text: string;
+      onSurface: string;
+      disabled: string;
+      placeholder: string;
+      backdrop: string;
+      notification: string;
+    }
+
+    interface ThemeAnimation {
+      scale: number;
+    }
+
+    export default interface ThemeType {
+      dark: boolean;
+      mode?: Mode;
+      roundness: number;
+      colors: ThemeColors;
+      fonts: ThemeFonts;
+      animation: ThemeAnimation;
+    }

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -16,10 +16,13 @@ import VectorIcon from 'react-native-vector-icons/FontAwesome';
 import {colors, fonts, hp, navigationIconSize, wp} from 'app/utils';
 import {AuthStackProps} from 'app/types/AuthStackTypes';
 import {isValidEmail, isValidPassword} from 'app/utils/validators';
+import {ThemeContext} from 'app/providers/ThemeContext';
 
 const Signin = ({navigation}: AuthStackProps) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const {theme, toggleTheme} = useContext(ThemeContext);
+
   const renderLabel = (label: string) => {
     return (
       <View style={styles.labelContainer}>
@@ -95,7 +98,7 @@ const Signin = ({navigation}: AuthStackProps) => {
           </View>
           <View style={styles.option}>
             <Text style={[fonts.caption]}>Don't have an account?</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+            <TouchableOpacity onPress={toggleTheme}>
               <Text
                 style={[
                   fonts.caption,
