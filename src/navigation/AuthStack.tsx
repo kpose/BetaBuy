@@ -20,15 +20,16 @@ function AuthStack() {
         },
       }}>
       <Stack.Screen
-        name="Signin"
-        component={Signin}
-        options={{headerTitle: 'Log in'}}
-      />
-      <Stack.Screen
         name="Signup"
         component={Signup}
         options={{headerTitle: 'Sign up'}}
       />
+      <Stack.Screen
+        name="Signin"
+        component={Signin}
+        options={{headerTitle: 'Log in'}}
+      />
+
       <Stack.Screen
         name="HomePage"
         component={HomePage}

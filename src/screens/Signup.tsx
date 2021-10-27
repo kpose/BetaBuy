@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {
   View,
   StyleSheet,
-  SafeAreaView,
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
@@ -10,22 +9,23 @@ import {
   ScrollView,
   Keyboard,
 } from 'react-native';
-import {Text, Surface} from 'react-native-paper';
+import {Text} from 'react-native-paper';
 import {LargeInput, LargeButton, Spinner} from 'app/components';
-import VectorIcon from 'react-native-vector-icons/FontAwesome';
-import {colors, fonts, hp, navigationIconSize, wp} from 'app/utils';
+import {colors, fonts, hp, wp} from 'app/utils';
 import {AuthStackProps} from 'app/types/AuthStackTypes';
 import {isValidEmail, isValidPassword} from 'app/utils/validators';
-import {SignupUser} from 'app/providers/SignupUser';
+import {useAppDispatch} from 'app/hooks/reduxHooks';
+import {setNameAndEmail} from 'app/redux/userSlice';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
 const Signup = ({navigation}: AuthStackProps) => {
   const [email, setEmail] = useState<string>('');
-  const [name, setName] = useState<string>('');
+  const [name, nameSet] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [isSignupError, setIsSignupError] = useState<string | null>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
 
   /* this is used to render a label for the form input */
   const renderLabel = (label: string) => {
@@ -39,10 +39,12 @@ const Signup = ({navigation}: AuthStackProps) => {
   /* To register user and navigate to homepage */
   const register = async () => {
     setIsLoading(true);
+    const userData = {email: email, name: name};
     await auth()
       .createUserWithEmailAndPassword(email, password)
       .then(res => {
-        firestore().collection('users').add({email: email, username: name});
+        firestore().collection('users').add(userData);
+        dispatch(setNameAndEmail(userData));
         navigation.navigate('HomePage');
       })
       .catch(error => {
@@ -90,7 +92,7 @@ const Signup = ({navigation}: AuthStackProps) => {
             {renderLabel('Name')}
             <LargeInput
               value={name}
-              onChangeText={(x: string) => setName(x)}
+              onChangeText={(x: string) => nameSet(x)}
               placeholder="John Doe"
               hasIcon={true}
               icon={email ? 'emoticon-cool' : 'emoticon-confused'}
@@ -100,6 +102,7 @@ const Signup = ({navigation}: AuthStackProps) => {
             {renderLabel('Email')}
             <LargeInput
               value={email}
+              keyboardType="email-address"
               onChangeText={(x: string) => setEmail(x)}
               placeholder="John Doe"
               error={email.length > 3 && !isValidEmail(email)}
@@ -122,6 +125,7 @@ const Signup = ({navigation}: AuthStackProps) => {
             {renderLabel('Password')}
             <LargeInput
               value={password}
+              secureTextEntry={true}
               onChangeText={(x: string) => setPassword(x)}
               placeholder="John Doe"
               error={password.length > 3 && !isValidPassword(password)}
