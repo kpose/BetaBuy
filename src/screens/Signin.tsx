@@ -11,9 +11,10 @@ import {
   Keyboard,
 } from 'react-native';
 import {Text, Surface} from 'react-native-paper';
-import {LargeInput, LargeButton} from 'app/components';
-import VectorIcon from 'react-native-vector-icons/FontAwesome';
+import {LargeInput, LargeButton, Spinner} from 'app/components';
+import auth from '@react-native-firebase/auth';
 import {colors, fonts, hp, navigationIconSize, wp} from 'app/utils';
+import firestore from '@react-native-firebase/firestore';
 import {AuthStackProps} from 'app/types/AuthStackTypes';
 import {isValidEmail, isValidPassword} from 'app/utils/validators';
 import {ThemeContext} from 'app/providers/ThemeContext';
@@ -21,6 +22,8 @@ import {ThemeContext} from 'app/providers/ThemeContext';
 const Signin = ({navigation}: AuthStackProps) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoginError, setisLoginError] = useState<string | null>();
   const {theme, toggleTheme} = useContext(ThemeContext);
 
   const renderLabel = (label: string) => {
@@ -30,6 +33,28 @@ const Signin = ({navigation}: AuthStackProps) => {
       </View>
     );
   };
+
+  /* Sign in */
+  const login = async () => {
+    setIsLoading(true);
+    await auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(res => {
+        navigation.navigate('AppStack');
+      })
+      .catch(error => {
+        if (error.code === 'auth/user-not-found') {
+          setIsLoading(false);
+          setisLoginError('Invalid credentials, try again');
+        }
+        setIsLoading(false);
+      });
+    setIsLoading(false);
+  };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -61,7 +86,8 @@ const Signin = ({navigation}: AuthStackProps) => {
             <LargeInput
               value={email}
               onChangeText={(x: string) => setEmail(x)}
-              placeholder="John Doe"
+              keyboardType={'email-address'}
+              placeholder="Enter your email"
               error={email.length > 3 && !isValidEmail(email)}
               hasIcon={true}
               icon={email ? 'emoticon-cool' : 'emoticon-confused'}
@@ -75,14 +101,21 @@ const Signin = ({navigation}: AuthStackProps) => {
 
             {renderLabel('Password')}
             <LargeInput
-              value={email}
-              onChangeText={(x: string) => setEmail(x)}
-              placeholder="John Doe"
+              value={password}
+              secureTextEntry={true}
+              onChangeText={(x: string) => setPassword(x)}
+              placeholder="Enter password"
               error={password.length > 3 && !isValidPassword(password)}
               hasIcon={true}
               icon={email ? 'eye-off' : 'eye'}
               iconColor={colors.SECONDARY}
             />
+
+            {isLoginError && (
+              <Text style={[fonts.caption, {color: colors.WARNING}]}>
+                {isLoginError}
+              </Text>
+            )}
             {password.length > 3 && !isValidPassword(password) && (
               <Text style={[fonts.caption, {color: colors.WARNING}]}>
                 Password must contain an uppercase and lowercase letter, a
@@ -93,12 +126,17 @@ const Signin = ({navigation}: AuthStackProps) => {
           <View style={styles.buttonContainer}>
             <LargeButton
               title="Log in"
-              onPress={() => console.log('predded')}
+              onPress={login}
+              disabled={
+                !isValidEmail(email) && !isValidPassword(password)
+                  ? true
+                  : false
+              }
             />
           </View>
           <View style={styles.option}>
             <Text style={[fonts.caption]}>Don't have an account?</Text>
-            <TouchableOpacity onPress={toggleTheme}>
+            <TouchableOpacity>
               <Text
                 style={[
                   fonts.caption,

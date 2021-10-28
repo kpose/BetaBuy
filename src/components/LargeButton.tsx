@@ -7,16 +7,19 @@ import {colors, fonts, hp, wp} from 'app/utils';
 interface Props {
   title: string;
   onPress: () => void;
+  disabled?: boolean;
 }
 
-const LargeButton = ({title, onPress}: Props) => {
+const LargeButton = ({title, onPress, disabled}: Props) => {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <LinearGradient
-        colors={[colors.PRIMARY, colors.PRIMARY]}
-        style={styles.button}>
-        <Text style={[fonts.buttonText]}>{title}</Text>
-      </LinearGradient>
+    <TouchableOpacity
+      onPress={onPress}
+      disabled={disabled}
+      style={[
+        styles.button,
+        {backgroundColor: disabled ? colors.DISABLED : colors.PRIMARY},
+      ]}>
+      <Text style={[fonts.buttonText]}>{title}</Text>
     </TouchableOpacity>
   );
 };

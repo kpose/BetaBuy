@@ -5,7 +5,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 export type AuthStackParams = {
     Signin: undefined;
     Signup: undefined;
-    HomePage: undefined
+    AppStack: undefined;
 }
 
 

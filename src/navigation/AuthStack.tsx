@@ -1,6 +1,7 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {Signin, Signup, HomePage} from 'app/screens';
+import {Signin, Signup} from 'app/screens';
+import {AppStack} from '.';
 import {getHeaderTitle} from '@react-navigation/elements';
 import {AuthNavHeader} from 'app/components';
 import {AuthStackParams} from 'app/types/AuthStackTypes';
@@ -31,9 +32,9 @@ function AuthStack() {
       />
 
       <Stack.Screen
-        name="HomePage"
-        component={HomePage}
-        options={{headerTitle: 'Sign up', headerShown: false}}
+        name="AppStack"
+        component={AppStack}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );
