@@ -4,9 +4,8 @@ import {View, StyleSheet} from 'react-native';
 import {Text} from 'react-native-paper';
 import auth from '@react-native-firebase/auth';
 import {AuthStackProps} from 'app/types/AuthStackTypes';
-import {AppStackProps} from 'app/types/AppStackTypes';
 
-const HomePage = ({navigation}: AppStackProps) => {
+const Out = ({navigation}: AuthStackProps) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const logOut = () => {
@@ -15,7 +14,8 @@ const HomePage = ({navigation}: AppStackProps) => {
       .signOut()
       .then(() => {
         setLoading(false);
-        console.log('user signed out');
+        //navigation.navigate('Signin');
+        console.log('user signed out...');
       });
   };
 
@@ -24,14 +24,14 @@ const HomePage = ({navigation}: AppStackProps) => {
   }
   return (
     <View style={styles.container}>
-      <Text>HomePage</Text>
+      <Text>Out</Text>
 
-      <LargeButton onPress={() => navigation.navigate('Out')} title="logout" />
+      <LargeButton onPress={logOut} title="logout" />
     </View>
   );
 };
 
-export default HomePage;
+export default Out;
 
 const styles = StyleSheet.create({
   container: {

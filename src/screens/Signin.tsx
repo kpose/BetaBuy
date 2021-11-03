@@ -12,9 +12,9 @@ import {
 } from 'react-native';
 import {Text, Surface} from 'react-native-paper';
 import {LargeInput, LargeButton, Spinner} from 'app/components';
-import auth from '@react-native-firebase/auth';
-import {colors, fonts, hp, navigationIconSize, wp} from 'app/utils';
-import firestore from '@react-native-firebase/firestore';
+
+import {colors, fonts, hp, wp} from 'app/utils';
+import SigninUser from 'app/providers/SigninUser';
 import {AuthStackProps} from 'app/types/AuthStackTypes';
 import {isValidEmail, isValidPassword} from 'app/utils/validators';
 import {ThemeContext} from 'app/providers/ThemeContext';
@@ -34,22 +34,18 @@ const Signin = ({navigation}: AuthStackProps) => {
     );
   };
 
-  /* Sign in */
+  const failedAttempts =
+    'Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.';
+
   const login = async () => {
     setIsLoading(true);
-    await auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(res => {
-        navigation.navigate('AppStack');
-      })
-      .catch(error => {
-        if (error.code === 'auth/user-not-found') {
-          setIsLoading(false);
-          setisLoginError('Invalid credentials, try again');
-        }
-        setIsLoading(false);
-      });
-    setIsLoading(false);
+    const response = await SigninUser(email, password);
+    if (response.message.code === 'auth/too-many-requests') {
+      setisLoginError(failedAttempts);
+      setIsLoading(false);
+    } else if (response.message.code === 'auth/wrong-password')
+      setIsLoading(false);
+    setisLoginError('Invalid credentials, try again');
   };
 
   if (isLoading) {
@@ -63,24 +59,6 @@ const Signin = ({navigation}: AuthStackProps) => {
         <ScrollView
           style={styles.container}
           showsVerticalScrollIndicator={false}>
-          {/* <View style={styles.socialContainer}>
-            <Text style={[fonts.caption, styles.socialCaption]}>
-              Log in with one of the following options.
-            </Text>
-            <View style={styles.socialRow}>
-              <TouchableOpacity>
-                <Surface style={[{backgroundColor: '#db3236'}, styles.surface]}>
-                  <VectorIcon name="google" size={25} color={colors.WHITE} />
-                </Surface>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Surface style={[styles.surface, {backgroundColor: '#3b5998'}]}>
-                  <VectorIcon name="facebook" size={25} color={colors.WHITE} />
-                </Surface>
-              </TouchableOpacity>
-            </View>
-          </View> */}
-
           <View>
             {renderLabel('Email')}
             <LargeInput

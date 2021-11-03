@@ -1,6 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {HomePage} from 'app/screens';
+import {HomePage, Out} from 'app/screens';
 import {AppStackParams} from 'app/types/AppStackTypes';
 
 const Stack = createStackNavigator<AppStackParams>();
@@ -12,11 +12,8 @@ function AppStack() {
         gestureEnabled: false,
         headerShown: false,
       }}>
-      <Stack.Screen
-        name="HomePage"
-        component={HomePage}
-        options={{headerTitle: 'Log in'}}
-      />
+      <Stack.Screen name="HomePage" component={HomePage} />
+      <Stack.Screen name="Out" component={Out} />
     </Stack.Navigator>
   );
 }

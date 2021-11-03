@@ -4,6 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 export type AppStackParams = {
     HomePage: undefined;
+    Out: undefined
 }
 
 
