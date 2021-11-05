@@ -1,5 +1,6 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import {scale} from 'react-native-size-matters';
+import { wp } from '.';
 
 export const fonts = StyleSheet.create({
   headerTitle: {
@@ -76,3 +77,4 @@ export const fonts = StyleSheet.create({
 
 export const navigationIconSize = scale(30);
 export const regularIconSize = scale(17);
+export const margin = wp(4)

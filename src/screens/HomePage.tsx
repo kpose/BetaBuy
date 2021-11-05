@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Text} from 'react-native-paper';
 import auth from '@react-native-firebase/auth';
-import {AuthStackProps} from 'app/types/AuthStackTypes';
+import {BottomSheet} from 'app/components';
 import {AppStackProps} from 'app/types/AppStackTypes';
 
 const HomePage = ({navigation}: AppStackProps) => {
@@ -27,6 +27,7 @@ const HomePage = ({navigation}: AppStackProps) => {
       <Text>HomePage</Text>
 
       <LargeButton onPress={() => navigation.navigate('Out')} title="logout" />
+      <BottomSheet />
     </View>
   );
 };
