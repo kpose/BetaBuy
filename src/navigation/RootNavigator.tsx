@@ -28,7 +28,7 @@ const RootNavigator = () => {
   if (!user) {
     return (
       <ThemeProvider>
-        <NavigationContainer theme={theme}>
+        <NavigationContainer theme={CombinedDarkTheme}>
           <AuthStack />
         </NavigationContainer>
       </ThemeProvider>
@@ -37,7 +37,7 @@ const RootNavigator = () => {
 
   return (
     <ThemeProvider>
-      <NavigationContainer theme={theme}>
+      <NavigationContainer theme={CombinedDarkTheme}>
         <AppStack />
       </NavigationContainer>
     </ThemeProvider>

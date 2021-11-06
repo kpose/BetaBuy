@@ -8,7 +8,7 @@ interface IThemeContext {
 }
 
 const defaultState: IThemeContext = {
-  theme: CombinedLightTheme,
+  theme: CombinedDarkTheme,
   toggleTheme: () => {},
 };
 
