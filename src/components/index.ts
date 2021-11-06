@@ -4,7 +4,16 @@ import AuthNavHeader from "./AuthNavHeader";
 import Spinner from "./Spinner";
 import BottomSheet from "./BottomSheet";
 import TopBar from "./TopBar";
+import NoNoteComponent from "./NoNoteComponent";
 
 
 
-export {LargeInput, LargeButton, AuthNavHeader, Spinner, BottomSheet, TopBar}
+export {
+        LargeInput,
+        LargeButton, 
+        AuthNavHeader, 
+        Spinner, 
+        BottomSheet, 
+        TopBar,
+        NoNoteComponent
+    }

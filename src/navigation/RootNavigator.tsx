@@ -45,3 +45,5 @@ const RootNavigator = () => {
 };
 
 export default RootNavigator;
+
+// theme={theme}
