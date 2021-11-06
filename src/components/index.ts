@@ -5,6 +5,7 @@ import Spinner from "./Spinner";
 import BottomSheet from "./BottomSheet";
 import TopBar from "./TopBar";
 import NoNoteComponent from "./NoNoteComponent";
+import NewNoteHeader from "./NewNoteHeader";
 
 
 
@@ -15,5 +16,6 @@ export {
         Spinner, 
         BottomSheet, 
         TopBar,
-        NoNoteComponent
+        NoNoteComponent,
+        NewNoteHeader
     }

@@ -13,7 +13,7 @@ const HomePage = ({navigation}: AppStackProps) => {
 
       <NoNoteComponent />
 
-      <BottomSheet />
+      <BottomSheet onFABPress={() => navigation.navigate('NewNotePage')} />
     </View>
   );
 };
