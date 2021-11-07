@@ -6,6 +6,8 @@ import BottomSheet from "./BottomSheet";
 import TopBar from "./TopBar";
 import NoNoteComponent from "./NoNoteComponent";
 import NewNoteHeader from "./NewNoteHeader";
+import KeyboardHeader from "./KeyboardHeader";
+import NewNoteModal from "./NewNoteModal";
 
 
 
@@ -17,5 +19,7 @@ export {
         BottomSheet, 
         TopBar,
         NoNoteComponent,
-        NewNoteHeader
+        NewNoteHeader,
+        KeyboardHeader,
+        NewNoteModal
     }

@@ -60,16 +60,11 @@ const NewNoteHeader = ({
 export default NewNoteHeader;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: hp(1),
-    marginHorizontal: margin,
-  },
-
   headerContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginBottom: hp(1),
   },
   innerRight: {
     flexDirection: 'row',
