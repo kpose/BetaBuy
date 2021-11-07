@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {
   View,
   Button,
@@ -11,7 +11,7 @@ import {
   Keyboard,
   Platform,
 } from 'react-native';
-import {Text} from 'react-native-paper';
+//import {Text} from 'react-native-paper';
 import {hp, wp, fonts, colors} from 'app/utils';
 import {margin} from 'app/utils/sizes';
 import {NewNoteHeader, KeyboardHeader, NewNoteModal} from 'app/components';
@@ -19,9 +19,14 @@ import {AppStackProps} from 'app/types/AppStackTypes';
 
 const NewNotePage = ({navigation}: AppStackProps) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+
   const onAddPress = () => {
     Keyboard.dismiss();
     setIsModalVisible(true);
+  };
+
+  const closeAddModal = () => {
+    setIsModalVisible(false);
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -55,7 +60,7 @@ const NewNotePage = ({navigation}: AppStackProps) => {
             />
           </TouchableWithoutFeedback>
         </ScrollView>
-        <NewNoteModal visible={isModalVisible} />
+        <NewNoteModal isVisible={isModalVisible} closeModal={closeAddModal} />
         <KeyboardHeader onAddPress={onAddPress} />
       </KeyboardAvoidingView>
     </SafeAreaView>

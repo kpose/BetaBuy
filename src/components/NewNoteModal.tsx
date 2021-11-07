@@ -1,21 +1,77 @@
-import React, {useState} from 'react';
-import {Alert, Modal, StyleSheet, Text, Pressable, View} from 'react-native';
+import React, {useRef} from 'react';
+import {StyleSheet, View, Text as TT} from 'react-native';
+import Modal from 'react-native-modal';
+import {Text} from 'react-native-paper';
+import Icon from 'react-native-vector-icons/Ionicons';
+import {hp, wp, colors, regularIconSize, fonts} from 'app/utils';
+import {margin} from 'app/utils/sizes';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 interface IProps {
-  visible: boolean;
+  isVisible: boolean;
+  closeModal: () => void;
 }
-
-const NewNoteModal = ({visible}: IProps) => {
+const NewNoteModal = ({isVisible, closeModal}: IProps) => {
   return (
-    <View>
-      <Modal animationType="slide" transparent={true} visible={visible}>
+    <Modal
+      isVisible={isVisible}
+      swipeDirection={['up', 'left', 'right', 'down']}
+      hasBackdrop={true}
+      backdropColor="transparent"
+      onBackdropPress={closeModal}
+      onBackButtonPress={closeModal}
+      style={styles.modal}>
+      <View>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
+            <View style={styles.rowContainer}>
+              <Icon
+                name="camera"
+                size={regularIconSize}
+                color={colors.PRIMARY}
+              />
+              <TT style={[styles.text, fonts.body]}> Take photo</TT>
+            </View>
+
+            <View style={styles.rowContainer}>
+              <Icon
+                name="image"
+                size={regularIconSize}
+                color={colors.PRIMARY}
+              />
+              <TT style={[styles.text, fonts.body]}> Choose image</TT>
+            </View>
+
+            <View style={styles.rowContainer}>
+              <Icon
+                name="brush-sharp"
+                size={regularIconSize}
+                color={colors.PRIMARY}
+              />
+              <TT style={[styles.text, fonts.body]}> Drawing </TT>
+            </View>
+
+            <View style={styles.rowContainer}>
+              <MaterialIcons
+                name="keyboard-voice"
+                size={regularIconSize}
+                color={colors.PRIMARY}
+              />
+              <TT style={[styles.text, fonts.body]}> Recording </TT>
+            </View>
+
+            <View style={styles.rowContainer}>
+              <Icon
+                name="checkbox-outline"
+                size={regularIconSize}
+                color={colors.PRIMARY}
+              />
+              <TT style={[styles.text, fonts.body]}> Checkboxes </TT>
+            </View>
           </View>
         </View>
-      </Modal>
-    </View>
+      </View>
+    </Modal>
   );
 };
 
@@ -26,14 +82,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
+    // marginTop: 22,
+  },
+  modal: {
+    justifyContent: 'flex-end',
+    margin: 0,
   },
   modalView: {
-    margin: 20,
     backgroundColor: 'white',
+    padding: margin,
+    width: '100%',
+    height: hp(52),
     borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -43,24 +103,12 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
+  rowContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: hp(2),
   },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
-  buttonClose: {
-    backgroundColor: '#2196F3',
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
+  text: {
+    marginLeft: wp(3),
   },
 });
