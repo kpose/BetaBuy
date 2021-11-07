@@ -11,7 +11,7 @@ interface IProps {
   isVisible: boolean;
   closeModal: () => void;
 }
-const NewNoteModal = ({isVisible, closeModal}: IProps) => {
+const NewNoteOptionsModal = ({isVisible, closeModal}: IProps) => {
   return (
     <Modal
       isVisible={isVisible}
@@ -26,47 +26,47 @@ const NewNoteModal = ({isVisible, closeModal}: IProps) => {
           <View style={styles.modalView}>
             <View style={styles.rowContainer}>
               <Icon
-                name="camera"
+                name="trash"
                 size={regularIconSize}
                 color={colors.PRIMARY}
               />
-              <Text style={[styles.text, fonts.body]}> Take photo</Text>
+              <Text style={[styles.text, fonts.body]}> Delete </Text>
             </View>
 
             <View style={styles.rowContainer}>
               <Icon
-                name="image"
+                name="copy-outline"
                 size={regularIconSize}
                 color={colors.PRIMARY}
               />
-              <Text style={[styles.text, fonts.body]}> Choose image</Text>
+              <Text style={[styles.text, fonts.body]}> Make a copy </Text>
             </View>
 
             <View style={styles.rowContainer}>
               <Icon
-                name="brush-sharp"
+                name="share-social-outline"
                 size={regularIconSize}
                 color={colors.PRIMARY}
               />
-              <Text style={[styles.text, fonts.body]}> Drawing </Text>
+              <Text style={[styles.text, fonts.body]}> Send </Text>
             </View>
 
             <View style={styles.rowContainer}>
-              <MaterialIcons
-                name="keyboard-voice"
+              <Icon
+                name="person-add-outline"
                 size={regularIconSize}
                 color={colors.PRIMARY}
               />
-              <Text style={[styles.text, fonts.body]}> Recording </Text>
+              <Text style={[styles.text, fonts.body]}> Collaborate </Text>
             </View>
 
             <View style={[styles.rowContainer]}>
               <Icon
-                name="checkbox-outline"
+                name="pricetag-outline"
                 size={regularIconSize}
                 color={colors.PRIMARY}
               />
-              <Text style={[styles.text, fonts.body]}> Checkboxes </Text>
+              <Text style={[styles.text, fonts.body]}> Labels </Text>
             </View>
           </View>
         </View>
@@ -75,7 +75,7 @@ const NewNoteModal = ({isVisible, closeModal}: IProps) => {
   );
 };
 
-export default NewNoteModal;
+export default NewNoteOptionsModal;
 
 const styles = StyleSheet.create({
   centeredView: {

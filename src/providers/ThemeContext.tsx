@@ -3,26 +3,27 @@ import {createContext, useState, FC} from 'react';
 import {CombinedDarkTheme, CombinedLightTheme} from 'app/utils';
 
 interface IThemeContext {
-  theme: typeof CombinedLightTheme;
+  darkTheme: boolean;
   toggleTheme?: () => void;
 }
 
 const defaultState: IThemeContext = {
-  theme: CombinedDarkTheme,
-  toggleTheme: () => {},
+  darkTheme: true,
 };
 
 export const ThemeContext = createContext<IThemeContext>(defaultState);
 
 export const ThemeProvider: FC = ({children}) => {
-  const [theme, setTheme] = useState(CombinedLightTheme);
+  const [darkTheme, setDarkTheme] = useState(defaultState.darkTheme);
 
-  const toggleTheme = () => {};
+  const toggleTheme = () => {
+    setDarkTheme(!darkTheme);
+  };
 
   return (
     <ThemeContext.Provider
       value={{
-        theme,
+        darkTheme,
         toggleTheme,
       }}>
       {children}

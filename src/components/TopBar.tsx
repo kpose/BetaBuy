@@ -29,7 +29,7 @@ const TopBar = ({
     <SafeAreaView style={styles.container}>
       <Surface style={styles.innerTab}>
         <View style={styles.leftContainer}>
-          <Pressable>
+          <Pressable onPress={onMenuPress}>
             <Icon name="menu" size={wp(6)} color={colors.PRIMARY} />
           </Pressable>
           <Pressable>

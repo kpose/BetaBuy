@@ -5,11 +5,18 @@ import {Text} from 'react-native-paper';
 import auth from '@react-native-firebase/auth';
 import {BottomSheet, TopBar, NoNoteComponent} from 'app/components';
 import {AppStackProps} from 'app/types/AppStackTypes';
+import {useThemeContext} from 'app/providers';
 
 const HomePage = ({navigation}: AppStackProps) => {
+  const {toggleTheme, darkTheme} = useThemeContext();
+  console.log(darkTheme);
+
   return (
     <View style={styles.container}>
-      <TopBar onGridListPress={() => console.log('switching view')} />
+      <TopBar
+        onGridListPress={() => console.log('switching view')}
+        onMenuPress={() => toggleTheme()}
+      />
 
       <NoNoteComponent />
 

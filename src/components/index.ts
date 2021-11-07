@@ -8,6 +8,7 @@ import NoNoteComponent from "./NoNoteComponent";
 import NewNoteHeader from "./NewNoteHeader";
 import KeyboardHeader from "./KeyboardHeader";
 import NewNoteModal from "./NewNoteModal";
+import NewNoteOptionsModal from "./NewNoteOptionsModal";
 
 
 
@@ -21,5 +22,6 @@ export {
         NoNoteComponent,
         NewNoteHeader,
         KeyboardHeader,
-        NewNoteModal
+        NewNoteModal,
+        NewNoteOptionsModal
     }

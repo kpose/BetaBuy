@@ -6,9 +6,10 @@ import {ThemeContext} from 'app/providers/ThemeContext';
 import auth from '@react-native-firebase/auth';
 import {CombinedDarkTheme, CombinedLightTheme} from 'app/utils';
 import {Spinner} from 'app/components';
+import {useThemeContext} from 'app/providers';
 
 const RootNavigator = () => {
-  const {theme} = useContext(ThemeContext);
+  const {darkTheme} = useThemeContext();
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
 
@@ -28,7 +29,8 @@ const RootNavigator = () => {
   if (!user) {
     return (
       <ThemeProvider>
-        <NavigationContainer theme={CombinedDarkTheme}>
+        <NavigationContainer
+          theme={darkTheme ? CombinedDarkTheme : CombinedLightTheme}>
           <AuthStack />
         </NavigationContainer>
       </ThemeProvider>
@@ -37,7 +39,8 @@ const RootNavigator = () => {
 
   return (
     <ThemeProvider>
-      <NavigationContainer theme={CombinedDarkTheme}>
+      <NavigationContainer
+        theme={darkTheme ? CombinedDarkTheme : CombinedLightTheme}>
         <AppStack />
       </NavigationContainer>
     </ThemeProvider>
