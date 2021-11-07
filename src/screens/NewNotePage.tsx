@@ -19,12 +19,19 @@ import {
   KeyboardHeader,
   NewNoteModal,
   NewNoteOptionsModal,
+  Spinner,
 } from 'app/components';
 import {AppStackProps} from 'app/types/AppStackTypes';
+import {useAppSelector} from 'app/hooks/reduxHooks';
+import CreateNote from 'app/providers/CreateNote';
 
 const NewNotePage = ({navigation}: AppStackProps) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isOptionsModal, setIsOptionsModal] = useState(false);
+  const [title, setTitle] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [body, setBody] = useState<string>('');
+  const userEmail = useAppSelector(state => state.user.user.email);
 
   const onAddPress = () => {
     Keyboard.dismiss();
@@ -40,9 +47,23 @@ const NewNotePage = ({navigation}: AppStackProps) => {
     setIsModalVisible(false);
   };
 
+  const saveNote = async () => {
+    setIsLoading(true);
+    const response = await CreateNote(title, body, userEmail);
+    setIsLoading(false);
+    console.log(response);
+  };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
   return (
     <SafeAreaView style={styles.container}>
-      <NewNoteHeader onBackPress={() => navigation.goBack()} />
+      <NewNoteHeader
+        onBackPress={() => navigation.goBack()}
+        onSavePress={saveNote}
+      />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -51,6 +72,8 @@ const NewNotePage = ({navigation}: AppStackProps) => {
           <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
             <TextInput
               style={[styles.input, fonts.title]}
+              value={title}
+              onChangeText={(text: string) => setTitle(text)}
               placeholder="Title"
               multiline={true}
               textAlignVertical="top"
@@ -63,6 +86,8 @@ const NewNotePage = ({navigation}: AppStackProps) => {
           <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
             <TextInput
               style={[styles.input, fonts.body, {marginTop: hp(1)}]}
+              value={body}
+              onChangeText={(text: string) => setBody(text)}
               placeholder="Note"
               multiline={true}
               autoFocus={true}

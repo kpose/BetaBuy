@@ -20,7 +20,10 @@ const HomePage = ({navigation}: AppStackProps) => {
 
       <NoNoteComponent />
 
-      <BottomSheet onFABPress={() => navigation.navigate('NewNotePage')} />
+      <BottomSheet
+        onFABPress={() => navigation.navigate('NewNotePage')}
+        onBrushPress={() => auth().signOut()}
+      />
     </View>
   );
 };

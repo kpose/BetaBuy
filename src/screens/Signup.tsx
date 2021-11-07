@@ -43,9 +43,8 @@ const Signup = ({navigation}: AuthStackProps) => {
     await auth()
       .createUserWithEmailAndPassword(email, password)
       .then(res => {
-        firestore().collection('users').add(userData);
+        firestore().collection('users').doc(email).set(userData);
         dispatch(setNameAndEmail(userData));
-        navigation.navigate('HomePage');
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
